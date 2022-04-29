@@ -9,8 +9,12 @@ fun main() {
 //    println(solutionLottoRank(intArrayOf(0, 0, 0, 0, 0, 0), intArrayOf(38, 19, 20, 40, 15, 25)).map { it })
 
     // 소수 만들기
-    println(solutionMakeDecimal(intArrayOf(1,2,3,4)))
-    println(solutionMakeDecimal(intArrayOf(1,2,7,6,4)))
+//    println(solutionMakeDecimal(intArrayOf(1,2,3,4)))
+//    println(solutionMakeDecimal(intArrayOf(1,2,7,6,4)))
+
+    //H-Index
+    println(solutionHIndex(intArrayOf(3, 0, 6, 1, 5)))
+    println(solutionHIndex(intArrayOf(3,44,1,2,4,5,9,6,7,445,243,45)))
 }
 
 // 신고 결과 받기
@@ -70,4 +74,15 @@ fun solutionMakeDecimal(nums: IntArray): Int {
     val combinationList = mutableListOf<List<Int>>()
     combination(combinationList,nums.toList(), Array(nums.size){false},0,3)
     return combinationList.count {isDecimal(it.sum())}
+}
+
+
+//H-Index
+fun solutionHIndex(citations: IntArray): Int {
+    var answer = 0
+    citations.sort()
+    for (i in citations.indices){
+        answer = answer.coerceAtLeast(citations[i].coerceAtMost(citations.size - i))
+    }
+    return answer
 }
